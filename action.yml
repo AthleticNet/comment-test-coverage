@@ -1,4 +1,4 @@
-name: 'Comment Test Coverage'
+name: 'Comment Karma Test Coverage'
 description: 'Read a Karma Test Coverage coverage-summary.json test report and comment stats on to commit'
 inputs:
   token:
