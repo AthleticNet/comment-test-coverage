@@ -14,8 +14,8 @@ async function run() {
     const sha = process.env.GITHUB_SHA;
     core.debug(`SHA: ${sha}`);
 
-    console.log(`about to read: ${path}`)
-    console.log(`about to read: ${process.env.GITHUB_WORKSPACE}/${path}`)
+    console.log(`about to read: ${inputs.path}`)
+    console.log(`about to read: ${process.env.GITHUB_WORKSPACE}/${inputs.path}`)
     const data = fs.readFileSync(`${process.env.GITHUB_WORKSPACE}/coverage/coverage-summary.json`, 'utf8');
     const json = JSON.parse(data);
     console.log(json);
