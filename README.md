@@ -1,6 +1,6 @@
 # Comment Test Coverage
 
-A GitHub action to comment on a commit on GitHub with a simple test coverage summary from Karma.
+A GitHub action to comment on a PR on GitHub with a simple test coverage summary from Karma.
 
 ## Usage with Karma + Angular
 1. Add `"codeCoverage": true,` under test > options in angular.json
@@ -35,4 +35,4 @@ jobs:
 
 ## License
 
-Repurposed from https://github.com/peter-evans/commit-comment, Copyright (c) 2019 Peter Evans
+Repurposed from https://github.com/peter-evans/commit-comment, Copyright (c) 2019 Peter Evans and https://github.com/mshick/add-pr-comment, Copyright (c) 2019 Michael Shick

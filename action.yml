@@ -1,5 +1,5 @@
 name: 'Comment Karma Test Coverage'
-description: 'Read a Karma Test Coverage coverage-summary.json test report and comment stats on to commit'
+description: 'Read a Karma Test Coverage coverage-summary.json test report and comment stats on to PR'
 inputs:
   token:
     description: 'The GitHub authentication token'
