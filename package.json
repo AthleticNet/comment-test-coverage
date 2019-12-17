@@ -19,7 +19,7 @@
   "homepage": "https://github.com/jacobbowdoin/output-karma-coverage#readme",
   "dependencies": {
     "@actions/core": "^1.2.0",
-    "@octokit/request": "^5.1.0"
+    "@actions/github": "^2.0.0"
   },
   "devDependencies": {
     "@zeit/ncc": "0.20.5"
