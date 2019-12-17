@@ -1,0 +1,27 @@
+{
+  "name": "output-karma-coverage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "package": "ncc build index.js -o dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacobbowdoin/output-karma-coverage.git"
+  },
+  "keywords": [],
+  "author": "Jacob Bowdoin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacobbowdoin/output-karma-coverage/issues"
+  },
+  "homepage": "https://github.com/jacobbowdoin/output-karma-coverage#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "@octokit/request": "^5.1.0"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "0.20.5"
+  }
+}

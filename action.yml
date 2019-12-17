@@ -1,0 +1,15 @@
+name: 'Output Karma Coverage'
+description: 'For use with commenting on a PR'
+inputs:
+  token:
+    description: 'The GitHub authentication token'
+    required: true
+  body:
+    description: 'Contents of the comment'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+branding:
+  icon: 'message-square'  
+  color: 'gray-dark'
