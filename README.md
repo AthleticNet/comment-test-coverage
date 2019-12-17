@@ -2,42 +2,36 @@
 
 A GitHub action to comment on a commit on GitHub with a simple test coverage summary from Karma.
 
-Repurposed from Commit Comment by Peter Evans
-![Commit Comment Example](https://github.com/peter-evans/commit-comment/blob/master/comment-example.png?raw=true)
-
-## Usage
+## Usage with Karma + Angular
+1. Add `"codeCoverage": true,` under test > options in angular.json
+2. In your karma.conf.js set coverageIstanbulReporter.reports to include `json-summary` and save it to the /coverage directory if using the sample setup below
+3. Use in your workflow as illustrated below:
 
 ```yml
-      - name: Create commit comment
-        uses: jacobbowdoin/comment-test-coverage@v1
+name: test-pull-request
+on: [pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+
+      - name: Run Jasmine tests
+        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+
+      - name: Comment Test Coverage on Commit
+        uses: jacobbowdoin/comment-test-coverage@1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          body: |
-            This is a multi-line test comment
-            - With GitHub **Markdown**
-            - Created by [comment-test-coverage][1]
-
-            [1]: https://github.com/jacobbowdoin/comment-test-coverage
+          path: coverage/coverage-summary.json
 ```
 
 ## Parameters
 
-- `token` (**required**) - The GitHub authentication token
-- `body` (**required**) - The contents of the comment.
+- `token` (**required**) - The GitHub authentication token (workflows automatically set this for you, nothing needed here)
+- `path` (**required**) - Path to your coverage-summary.json file
 
-
-## Evaluating environment variables
-
-Environment variables can be evaluated in the `body` input as follows.
-
-```yml
-      - name: Create commit comment
-        uses: jacobbowdoin/comment-test-coverage@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          body: |
-            My env var: ${process.env.MY_ENV_VAR}
-```
 
 ## License
 
