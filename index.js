@@ -7,7 +7,7 @@ async function run() {
   try {
     const inputs = {
       token: core.getInput("token"),
-      body: core.getInput("body"),
+      path: core.getInput("path"),
     };
     core.debug(`Inputs: ${inspect(inputs)}`);
 
@@ -34,7 +34,7 @@ async function run() {
         headers: {
           authorization: `token ${inputs.token}`
         },
-        body: eval('`' + inputs.body + '`')
+        body: eval('`' + inputs.path + '`')
       }
     );
   } catch (error) {

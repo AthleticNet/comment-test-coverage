@@ -379,17 +379,32 @@ module.exports = require("os");
 const { inspect } = __webpack_require__(669);
 const core = __webpack_require__(470);
 const { request } = __webpack_require__(753);
+const fs = __webpack_require__(747);
 
 async function run() {
   try {
     const inputs = {
       token: core.getInput("token"),
-      body: core.getInput("body"),
+      path: core.getInput("path"),
     };
     core.debug(`Inputs: ${inspect(inputs)}`);
 
     const sha = process.env.GITHUB_SHA;
     core.debug(`SHA: ${sha}`);
+
+    console.log('about to read')
+    fs.readdir(path, function (err, items) {
+      console.log(items);
+
+      for (var i = 0; i < items.length; i++) {
+        console.log(items[i]);
+      }
+    });
+
+    const data = fs.readFileSync('coverage/coverage-summary.json', 'utf8');
+    const json = JSON.parse(data);
+    console.log(json);
+
 
     await request(
       `POST /repos/${process.env.GITHUB_REPOSITORY}/commits/${sha}/comments`,
@@ -397,7 +412,7 @@ async function run() {
         headers: {
           authorization: `token ${inputs.token}`
         },
-        body: eval('`'+inputs.body+'`')
+        body: eval('`' + inputs.path + '`')
       }
     );
   } catch (error) {

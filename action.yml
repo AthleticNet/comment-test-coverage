@@ -1,11 +1,11 @@
 name: 'Comment Test Coverage'
-description: 'Read a Karma Test Coverage json-summary test report and comment stats on to commit'
+description: 'Read a Karma Test Coverage coverage-summary.json test report and comment stats on to commit'
 inputs:
   token:
     description: 'The GitHub authentication token'
     required: true
-  body:
-    description: 'Contents of the comment'
+  path:
+    description: 'Filepath to coverage-summary.json'
     required: true
 runs:
   using: 'node12'
