@@ -20,8 +20,8 @@ jobs:
       - name: Run Jasmine tests
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 
-      - name: Comment Test Coverage on Commit
-        uses: jacobbowdoin/comment-test-coverage@1
+      - name: Comment Test Coverage
+        uses: AthleticNet/comment-test-coverage@1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: coverage/coverage-summary.json
@@ -42,8 +42,8 @@ jobs:
 ## How to edit action
 1. Clone down repo, `npm install`, and make changes
 2. Run `npm run package` 
-3. Commit
-4. 
+3. Commit changes
+4. Create a new release on GitHub to publish latest version of the action. See https://help.github.com/en/actions/building-actions/publishing-actions-in-github-marketplace
 
 ## License
 
