@@ -8,6 +8,7 @@ async function run() {
     const inputs = {
       token: core.getInput("token"),
       path: core.getInput("path"),
+      title: core.getInput("title"),
     };
 
     const {
@@ -28,7 +29,7 @@ async function run() {
     const data = fs.readFileSync(`${process.env.GITHUB_WORKSPACE}/${inputs.path}`, 'utf8');
     const json = JSON.parse(data);
 
-    const coverage = `==== **Test Coverage** ====
+    const coverage = `==== **${inputs.title}** ====
 Statements: ${json.total.statements.pct}% ( ${json.total.statements.covered}/${json.total.statements.total} )
 Branches  : ${json.total.branches.pct}%   ( ${json.total.branches.covered}  /${json.total.branches.total} )
 Functions : ${json.total.functions.pct}%  ( ${json.total.functions.covered} /${json.total.functions.total} )

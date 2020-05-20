@@ -25,6 +25,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: coverage/coverage-summary.json
+          title: Karma Test Coverage
 ```
 
 ## Usage with Jest
@@ -36,7 +37,13 @@ jobs:
 
 - `token` (**required**) - The GitHub authentication token (workflows automatically set this for you, nothing needed here)
 - `path` (**required**) - Path to your coverage-summary.json file
+- `title` (**optional**) - Title of comment in PR (defaults to "Test Coverage")
 
+## How to edit action
+1. Clone down repo, `npm install`, and make changes
+2. Run `npm run package` 
+3. Commit
+4. 
 
 ## License
 
