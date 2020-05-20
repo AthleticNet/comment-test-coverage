@@ -1,6 +1,6 @@
 # Comment Test Coverage
 
-A GitHub action to comment on a PR on GitHub with a simple test coverage summary from Karma.
+A GitHub action to comment on a PR on GitHub with a simple test coverage summary.
 
 ## Usage with Karma + Angular
 1. Add `"codeCoverage": true,` under test > options in angular.json
@@ -26,6 +26,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           path: coverage/coverage-summary.json
 ```
+
+## Usage with Jest
+1. Add `"codeCoverage": true,` under test > options in angular.json
+2. In your jest.config.js set coverageReporters to include `json-summary` and set coverageDirectory to 'coverage' if using the path in the sample setup above.
+3. Use in your workflow as illustrated above in the Karma example.
 
 ## Parameters
 
