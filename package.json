@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/AthleticNet/comment-test-coverage#readme",
   "dependencies": {
-    "@actions/core": "^1.2.0",
+    "@actions/core": "^1.2.6",
     "@actions/github": "^2.0.0"
   },
   "devDependencies": {
