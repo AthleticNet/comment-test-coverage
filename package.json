@@ -1,6 +1,6 @@
 {
   "name": "output-test-coverage",
-  "version": "1.0.2",
+  "version": "1.2.1",
   "description": "",
   "main": "index.js",
   "scripts": {

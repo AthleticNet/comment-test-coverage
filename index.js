@@ -24,7 +24,7 @@ async function run() {
     const { full_name: repoFullName } = repository;
     const [owner, repo] = repoFullName.split("/");
 
-    const octokit = new github.GitHub(inputs.token);
+    const octokit = new github.getOctokit(inputs.token);
 
     const data = fs.readFileSync(`${process.env.GITHUB_WORKSPACE}/${inputs.path}`, 'utf8');
     const json = JSON.parse(data);
