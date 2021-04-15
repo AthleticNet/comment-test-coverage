@@ -29,11 +29,14 @@ async function run() {
     const data = fs.readFileSync(`${process.env.GITHUB_WORKSPACE}/${inputs.path}`, 'utf8');
     const json = JSON.parse(data);
 
-    const coverage = `==== **${inputs.title}** ====
-Statements: ${json.total.statements.pct}% ( ${json.total.statements.covered}/${json.total.statements.total} )
-Branches  : ${json.total.branches.pct}%   ( ${json.total.branches.covered}  /${json.total.branches.total} )
-Functions : ${json.total.functions.pct}%  ( ${json.total.functions.covered} /${json.total.functions.total} )
-Lines     : ${json.total.lines.pct}%      ( ${json.total.lines.covered}     /${json.total.lines.total} )`
+    const coverage = `
+|${inputs.title}| %                           | values                                                              |
+|---------------|:---------------------------:|:-------------------------------------------------------------------:|
+|Statements     |${json.total.statements.pct}%|( ${json.total.statements.covered} / ${json.total.statements.total} )|
+|Branches       |${json.total.branches.pct}%  |( ${json.total.branches.covered} / ${json.total.branches.total} )    |
+|Functions      |${json.total.functions.pct}% |( ${json.total.functions.covered} / ${json.total.functions.total} )  |
+|Lines          |${json.total.lines.pct}%     |( ${json.total.lines.covered} / ${json.total.lines.total} )          |
+`;
 
     await octokit.issues.createComment({
       owner,
