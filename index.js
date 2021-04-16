@@ -38,11 +38,24 @@ async function run() {
 |Lines          |${json.total.lines.pct}%     |( ${json.total.lines.covered} / ${json.total.lines.total} )          |
 `;
 
+    const list = await octokit.issues.listComments({
+      owner,
+      repo,
+      issue_number: issueNumber,
+    });
+
     await octokit.issues.createComment({
       owner,
       repo,
       issue_number: issueNumber,
-      body: eval('`' + coverage + '`')
+      body: `\`\`\`json\n${JSON.stringify(list, null, 2)}\n\`\`\``,
+    });
+
+    await octokit.issues.createComment({
+      owner,
+      repo,
+      issue_number: issueNumber,
+      body: coverage,
     });
   } catch (error) {
     core.debug(inspect(error));
