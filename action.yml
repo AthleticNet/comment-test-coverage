@@ -1,11 +1,11 @@
 name: 'Comment Test Coverage'
-description: 'Read a Test Coverage coverage-summary.json test report and comment stats on to PR'
+description: 'Read a Test Coverage json-summary test report and add stats on to PR using a table that rewrites itself on successive pushes'
 inputs:
   token:
     description: 'The GitHub authentication token'
     required: true
   path:
-    description: 'Filepath to coverage-summary.json'
+    description: 'Filepath to json-summary file'
     required: true
   title:
     description: 'Comment title in PR conversation'

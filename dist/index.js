@@ -230,6 +230,10 @@ const core = __webpack_require__(470);
 const github = __webpack_require__(469);
 const fs = __webpack_require__(747);
 
+const originMeta = {
+  commentFrom: 'Comment Test Coverage as table',
+}
+
 async function run() {
   try {
     const inputs = {
@@ -256,17 +260,27 @@ async function run() {
     const data = fs.readFileSync(`${process.env.GITHUB_WORKSPACE}/${inputs.path}`, 'utf8');
     const json = JSON.parse(data);
 
-    const coverage = `==== **${inputs.title}** ====
-Statements: ${json.total.statements.pct}% ( ${json.total.statements.covered}/${json.total.statements.total} )
-Branches  : ${json.total.branches.pct}%   ( ${json.total.branches.covered}  /${json.total.branches.total} )
-Functions : ${json.total.functions.pct}%  ( ${json.total.functions.covered} /${json.total.functions.total} )
-Lines     : ${json.total.lines.pct}%      ( ${json.total.lines.covered}     /${json.total.lines.total} )`
+    const coverage = `<!--json:${JSON.stringify(originMeta)}-->
+|${inputs.title}| %                           | values                                                              |
+|---------------|:---------------------------:|:-------------------------------------------------------------------:|
+|Statements     |${json.total.statements.pct}%|( ${json.total.statements.covered} / ${json.total.statements.total} )|
+|Branches       |${json.total.branches.pct}%  |( ${json.total.branches.covered} / ${json.total.branches.total} )    |
+|Functions      |${json.total.functions.pct}% |( ${json.total.functions.covered} / ${json.total.functions.total} )  |
+|Lines          |${json.total.lines.pct}%     |( ${json.total.lines.covered} / ${json.total.lines.total} )          |
+`;
+
+    await deletePreviousComments({
+      issueNumber,
+      octokit,
+      owner,
+      repo,
+    });
 
     await octokit.issues.createComment({
       owner,
       repo,
       issue_number: issueNumber,
-      body: eval('`' + coverage + '`')
+      body: coverage,
     });
   } catch (error) {
     core.debug(inspect(error));
@@ -274,7 +288,38 @@ Lines     : ${json.total.lines.pct}%      ( ${json.total.lines.covered}     /${j
   }
 }
 
+async function deletePreviousComments({ owner, repo, octokit, issueNumber }) {
+  const onlyPreviousCoverageComments = (comment) => {
+    const regexMarker = /^<!--json:{.*?}-->/;
+    const extractMetaFromMarker = (body) => JSON.parse(body.replace(/^<!--json:|-->(.|\n|\r)*$/g, ''));
+
+    if (comment.user.type !== 'Bot') return false;
+    if (!regexMarker.test(comment.body)) return false;
+
+    const meta = extractMetaFromMarker(comment.body);
+
+    return meta.commentFrom === originMeta.commentFrom;
+  }
+
+  const asyncDeleteComment = (comment) => {
+    return octokit.issues.deleteComment({ owner, repo, comment_id: comment.id });
+  }
+
+  const commentList = await octokit.issues.listComments({
+    owner,
+    repo,
+    issue_number: issueNumber,
+  }).then(response => response.data);
+
+  await Promise.all(
+    commentList
+    .filter(onlyPreviousCoverageComments)
+    .map(asyncDeleteComment)
+  );
+}
+
 run();
+
 
 /***/ }),
 
