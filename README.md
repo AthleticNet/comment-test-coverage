@@ -1,8 +1,8 @@
-# Comment Test Coverage
+# Comment Test Coverage from a json-summary file
 
-A GitHub action to comment on a PR on GitHub with a simple test coverage summary.
+A GitHub action to comment on a PR on GitHub with a simple test coverage summary table that edits itself on successive pushes to the same PR.
 
-## Usage with Karma + Angular
+## How to use with Karma + Angular
 1. Add `"codeCoverage": true,` under test > options in angular.json
 2. In your karma.conf.js set coverageIstanbulReporter.reports to include `json-summary` and save it to the /coverage directory if using the sample setup below
 3. Use in your workflow as illustrated below:
@@ -28,7 +28,7 @@ jobs:
           title: Karma Test Coverage
 ```
 
-## Usage with Jest
+## How to use with Jest
 1. Add `"codeCoverage": true,` under test > options in angular.json
 2. In your jest.config.js set coverageReporters to include `json-summary` and set coverageDirectory to 'coverage' if using the path in the sample setup above.
 3. Use in your workflow as illustrated above in the Karma example.
@@ -39,7 +39,8 @@ jobs:
 - `path` (**required**) - Path to your coverage-summary.json file
 - `title` (**optional**) - Title of comment in PR (defaults to "Test Coverage")
 
-## How to edit action
+## How to edit the action
+Feel free to submit a PR to this repo and ask me to update the action, but if you'd like to create your own action:
 1. Clone down repo, `npm install`, and make changes
 2. Run `npm run package` 
 3. Commit changes
