@@ -34,7 +34,9 @@ async function run() {
     const json = JSON.parse(data);
 
     const coverage = `<!--json:${JSON.stringify(originMeta)}-->
-| ${inputs.title} | %                             | values                                                                |
+    ## ${inputs.title}
+
+| Category        | Percentage                    | Covered / Total                                                       |
 | :-------------- | :---------------------------- | :-------------------------------------------------------------------: |
 | Statements      | ${json.total.statements.pct}% | ( ${json.total.statements.covered} / ${json.total.statements.total} ) |
 | Branches        | ${json.total.branches.pct}%   | ( ${json.total.branches.covered} / ${json.total.branches.total} )     |
